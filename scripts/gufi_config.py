@@ -75,10 +75,10 @@ class Config(object): # pylint: disable=too-few-public-methods,useless-object-in
         # path string
         if isinstance(config_reference, str):
             with open(config_reference, 'r') as config_file: # pylint: disable=unspecified-encoding
-                self.config = self._read_lines(settings, config_file,config_reference)
+                self.config = self._read_lines(settings, config_file, config_reference)
         # iterable object containing lines
         elif self._check_iterable(config_reference):
-            self.config = self._read_lines(settings, config_reference,config_reference)
+            self.config = self._read_lines(settings, config_reference, config_reference)
         else:
             raise TypeError('Cannot convert {0} to a config'.format(type(config_reference)))
 
