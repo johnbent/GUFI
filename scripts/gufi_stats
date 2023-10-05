@@ -1106,16 +1106,6 @@ OTHERS = [
 ]
 
 
-# a helper function to show the gufi_query being executed. Helpful for debugging and education.
-def my_pretty_print(cmd_tokens):
-  formatted_string = ""
-  for index, token in enumerate(cmd_tokens):
-      if token.startswith('-') or index == len(cmd_tokens)-1:
-          formatted_string += '\n\t' + token
-      else:
-          formatted_string += ' ' + token
-  print(f"Executing {formatted_string}")
-
 # argv[0] should be the command name
 def run(argv, config_path):
     stats = OrderedDict(RECURSIVE + CUMULATIVE + BOTH + OTHERS)
@@ -1153,9 +1143,6 @@ def run(argv, config_path):
                         metavar='u',
                         type=gufi_common.get_uid,
                         help='restrict to user')
-    parser.add_argument('--verbose', '-V',
-                        action='store_true',
-                        help='Show the gufi_query being executed')
     parser.add_argument('stat',
                         choices=stats.keys(),
                         help='statistic to get')
@@ -1191,7 +1178,7 @@ def run(argv, config_path):
         query_cmd += ['-k', args.skip]
 
     if args.verbose:
-        my_pretty_print(query_cmd + [args.path])
+        gufi_common.print_query(query_cmd + [args.path])
 
     query = subprocess.Popen(query_cmd + [args.path]) # pylint: disable=consider-using-with
     query.communicate()                               # block until query finishes

@@ -257,6 +257,17 @@ def build_query(select, tables, where=None, group_by=None,
 
     return query
 
+# a helper function to show the gufi_query being executed. Helpful for debugging and education.
+def print_query(query_tokens):
+  formatted_string = ""
+  for index, token in enumerate(query_tokens):
+      if token.startswith('-') or index == len(query_tokens)-1:
+          formatted_string += '\n\t\t' + token
+      else:
+          formatted_string += ' ' + token
+  print("GUFI query is \n\t{0}".format(formatted_string))
+
+
 def add_common_flags(parser):
     '''Common GUFI tool flags'''
     parser.add_argument('--delim',
@@ -286,3 +297,7 @@ def add_common_flags(parser):
                         type=str,
                         default=None,
                         help='Name of file containing directory basenames to skip')
+
+    parser.add_argument('--verbose', '-V',
+                        action='store_true',
+                        help='Show the gufi_query being executed')

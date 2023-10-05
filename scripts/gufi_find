@@ -896,6 +896,9 @@ def run(argv, config_path):
     if args.skip:
         query_cmd += ['-k', args.skip]
 
+    if args.verbose:
+        gufi_common.print_query(query_cmd + paths)
+
     if args.fprint:
         with open(args.fprint, 'wb') as out:
             query = subprocess.Popen(query_cmd + paths, stdout=out)
