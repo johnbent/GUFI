@@ -398,7 +398,6 @@ def run(argv, config_path):
 
         if args.verbose:
             gufi_common.print_query(query_cmd + [fullpath])
-        
 
         query = subprocess.Popen(query_cmd + [fullpath]) # pylint: disable=consider-using-with
         query.communicate()                              # block until query finishes
