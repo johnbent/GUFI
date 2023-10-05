@@ -115,7 +115,7 @@ class Config(object): # pylint: disable=too-few-public-methods,useless-object-in
 
         for key in settings:
             if key not in out:
-                raise KeyError('While attempting to parse GUFI config at {1} found missing setting {0}'.format(key, path))
+                raise KeyError('While attempting to parse GUFI config at {0} found missing setting {1}'.format(path, key))
 
         return out
 
