@@ -91,7 +91,7 @@ class Config(object): # pylint: disable=too-few-public-methods,useless-object-in
         return True
 
     @staticmethod
-    def _read_lines(settings, lines,path):
+    def _read_lines(settings, lines, path):
         out = {}
         for line in lines:
             line = line.strip()
@@ -115,7 +115,7 @@ class Config(object): # pylint: disable=too-few-public-methods,useless-object-in
 
         for key in settings:
             if key not in out:
-                raise KeyError('While attempting to parse GUFI config at {1} found missing setting {0}'.format(key,path))
+                raise KeyError('While attempting to parse GUFI config at {1} found missing setting {0}'.format(key, path))
 
         return out
 

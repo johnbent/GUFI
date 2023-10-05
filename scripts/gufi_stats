@@ -1105,7 +1105,6 @@ OTHERS = [
     ['gid-size',              gid_size],
 ]
 
-
 # argv[0] should be the command name
 def run(argv, config_path):
     stats = OrderedDict(RECURSIVE + CUMULATIVE + BOTH + OTHERS)
