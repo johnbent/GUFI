@@ -262,10 +262,10 @@ def print_query(query_tokens):
   formatted_string = ""
   for index, token in enumerate(query_tokens):
       if token.startswith('-') or index == len(query_tokens)-1:
-          formatted_string += '\n\t\t' + token
+          formatted_string += '\n    ' + token
       else:
           formatted_string += ' ' + token
-  print('GUFI query is \n\t{0}'.format(formatted_string))
+  print('GUFI query is \n  {0}'.format(formatted_string))
 
 def add_common_flags(parser):
     '''Common GUFI tool flags'''
