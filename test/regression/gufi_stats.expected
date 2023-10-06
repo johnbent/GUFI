@@ -52,20 +52,20 @@ leaf_directory 1
 unusual#? directory , 1
 
 $ gufi_stats --verbose depth "prefix"
+0
+GUFI query is
+   gufi_query
+    -n 1
     -B 4096
-    -G SELECT CASE length(name) WHEN 0 THEN 0 ELSE length(name) - length(replace(name, '/', '')) END FROM aggregate ORDER BY name ASC
+    -d
     -I CREATE TABLE out(name TEXT)
+    -S INSERT INTO out SELECT rpath(sname, sroll) FROM vrsummary
     -J INSERT INTO aggregate SELECT * FROM out
     -K CREATE TABLE aggregate(name TEXT)
-    -S INSERT INTO out SELECT rpath(sname, sroll) FROM vrsummary
-    -d
-    -n 1
+    -G SELECT CASE length(name) WHEN 0 THEN 0 ELSE length(name) - length(replace(name, '/', '')) END FROM aggregate ORDER BY name ASC
     -y 0
     -z 0
     prefix
-   gufi_query
-0
-GUFI query is
 
 $ gufi_stats    filesize "prefix"
 1049622
