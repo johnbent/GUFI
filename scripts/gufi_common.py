@@ -65,6 +65,7 @@ import argparse
 import grp
 import pwd
 import re
+import sys
 
 # table names
 SUMMARY     = 'summary'
@@ -265,7 +266,8 @@ def print_query(query_tokens):
             formatted_string += '\n    ' + token
         else:
             formatted_string += ' ' + token
-    print('GUFI query is \n  {0}'.format(formatted_string), flush=True)
+    print('GUFI query is \n  {0}'.format(formatted_string))
+    sys.stdout.flush()
 
 def add_common_flags(parser):
     '''Common GUFI tool flags'''
