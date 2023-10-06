@@ -265,7 +265,7 @@ def print_query(query_tokens):
             formatted_string += '\n    ' + token
         else:
             formatted_string += ' ' + token
-    print('GUFI query is \n  {0}'.format(formatted_string))
+    print('GUFI query is \n  {0}'.format(formatted_string), flush=True)
 
 def add_common_flags(parser):
     '''Common GUFI tool flags'''
