@@ -30,17 +30,36 @@ ir=/mnt/nvme3n1/jbent/jbent_home/
 #    -d ' ' \
 #    $ir
 #
-echo "file sizes and file counts as function of depth in $ir using summary table"
+echo "file sizes and file counts and directory counts as function of depth in $ir using summary table"
+#gufi_query \
+#    -B 4096 \
+#    -I "CREATE TABLE intermediate (depth INTEGER, totfiles INTEGER, totsize INTEGER, totdirs INTEGER)" \
+#    -K "CREATE TABLE aggregate    (depth INTEGER, totfiles INTEGER, totsize INTEGER, totdirs INTEGER)" \
+#    -S "INSERT INTO intermediate SELECT level(), totfiles, totsize, 1 FROM vrsummary " \
+#    -J "INSERT INTO aggregate SELECT * FROM intermediate " \
+#    -G "SELECT depth, total(totdirs), total(totfiles), total(totsize),total(totfiles)/total(totdirs), total(totsize)/total(totfiles) FROM aggregate GROUP BY depth ORDER BY depth" \
+#    -n 224 \
+#    -d ' ' \
+#    $ir
+
+echo "max and min file size in $ir using summary table"
 gufi_query \
     -B 4096 \
-    -I "CREATE TABLE intermediate (depth INTEGER, totfiles INTEGER, totsize INTEGER, totdirs INTEGER)" \
-    -K "CREATE TABLE aggregate    (depth INTEGER, totfiles INTEGER, totsize INTEGER, totdirs INTEGER)" \
-    -S "INSERT INTO intermediate SELECT level(), totfiles, totsize, 1 FROM vrsummary " \
-    -J "INSERT INTO aggregate SELECT * FROM intermediate " \
-    -G "SELECT depth, total(totdirs), total(totfiles), total(totsize),total(totfiles)/total(totdirs), total(totsize)/total(totfiles) FROM aggregate GROUP BY depth ORDER BY depth" \
+    -I "CREATE TABLE intermediate (maxsize INTEGER, minsize INTEGER)" \
+    -K "CREATE TABLE aggregate    (maxsize INTEGER, minsize INTEGER)" \
+    -S "INSERT INTO intermediate SELECT max(maxsize), min(minsize) FROM vrsummary " \
+    -J "INSERT INTO aggregate SELECT max(maxsize),min(minsize) FROM intermediate " \
+    -G "SELECT max(maxsize),min(minsize) FROM aggregate" \
     -n 224 \
     -d ' ' \
     $ir
+
+
+
+
+
+
+
 
 
 
