@@ -65,6 +65,7 @@ import argparse
 import grp
 import pwd
 import re
+import shlex
 import sys
 
 # table names
@@ -262,10 +263,11 @@ def build_query(select, tables, where=None, group_by=None,
 def print_query(query_tokens):
     formatted_string = ""
     for index, token in enumerate(query_tokens):
+        quoted_token = shlex.quote(token)
         if token.startswith('-') or index == len(query_tokens)-1:
-            formatted_string += '\n    ' + token
+            formatted_string += ' \\\n    ' + quoted_token
         else:
-            formatted_string += ' ' + token
+            formatted_string += ' ' + quoted_token
     print('GUFI query is \n  {0}'.format(formatted_string))
     sys.stdout.flush()
 
